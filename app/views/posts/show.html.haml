@@ -1,0 +1,4 @@
+#post-8.post
+  %h2= @post.title
+  %small= @post.created_at.strftime("опубликовано %d.%m.%Y года")     
+  .entry!= @post.body

@@ -1,0 +1,18 @@
+%h2= @article.title
+!= @article.body
+- if @article.children != []
+	- content_for :post do
+		- @article.children.each do |art|
+			.date
+				%span= I18n.l(art.updated_at.to_date, :format => :month)
+				28
+			.title
+				%h3.navigate
+					= link_to truncate(art.title, :ommission => '...', :length => 50), article_path(art), :title => art.title
+			%div{:style=>"clear:both; margin: 10px; height: 10px;"}
+				-#.postdata
+				-#	%span.category
+				-#		Категория:
+				-#		= link_to art.title, article_path(@article)
+				-#	-#%span.comments
+				-#	-#<a href="http://xtemplate.ru/prosmotr/?p=1#comments" title="Комментарий к записи Привет, мир!">19 Комментариев &#187;</a></span></div>
