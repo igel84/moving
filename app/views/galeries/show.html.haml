@@ -1,0 +1,4 @@
+%h2= @galery.name
+.galery_list
+	- @galery.photos.each do |photo|
+		= link_to image_tag(photo.photo_image.url(:thumb), alt: photo.name), photo.photo_image.url(:medium), title: photo.name, rel: 'gallery', class: 'fancybox'

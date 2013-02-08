@@ -1,0 +1,83 @@
+!!! 5
+%html(lang="ru")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")    
+    - if content_for?(:moving) != nil
+      = yield(:moving)
+    - else
+      %title= "Раскрутка сайтов - mlip.ru"
+      %meta(name="description" content="сайт о раскрутке и продвижении сайтов")
+      %meta(name="keywords" content="раскрутка продвижение сайтов сайта")
+    %meta(name="author" content="млип")
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "application", :media => "all"
+    %link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
+    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
+    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
+    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
+    %link(href="/assets/favicon.ico" rel="shortcut icon")
+
+
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          .container.nav-collapse
+            %ul.nav
+              %li= link_to "раскрутка сайта по воронежу", "http://mlip.ru/articles/raskrutka-sayta"
+              %li= link_to "создание веб-сайта в воронеже", "http://mlip.ru/articles/uslugi"
+            %ul.nav.pull-right
+              %li
+                = mail_to "admin@mlip.ru", "<i class=icon-envelope></i>написать письмо в веб-студию МЛИП".html_safe, encode: "javascript", subject: "письмо отправлено с сайта раскрутка-сайтов-воронеж.рф"
+    .container{style:'margin-top:50px'}
+
+      .row
+        .span9
+          = bootstrap_flash
+          #myCarousel.carousel.slide
+            .carousel-inner
+              .active.item
+                = image_tag 'mlip.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://mlip.ru', 'http://mlip.ru', target: '_blank'
+                    = '- создание и продвижение сайтов в Воронеже'
+              .item 
+                = image_tag 'aquamarket.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://aquamarket-vrn.ru', 'http://aquamarket-vrn.ru', target: '_blank'
+                    = '- водоподготовка и очистка воды'
+              .item 
+                = image_tag 'voronezhles.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://voronezhles.ru', 'http://voronezhles.ru', target: '_blank'
+                    = '- деревянные дома из оцилиндрованного бревна в воронеже, пиломатериал'
+            / Carousel nav
+            %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+            %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+          = yield
+        .span3
+          %ul.nav.nav-tabs.nav-stacked
+            - Article.order('lft DESC').try(:each) do |article|
+              %li{class: "#{'active' if current_page?(article_link_path(article.slug))}"}= link_to article.title, article_link_path(article.slug)
+            -#%li
+            -#  = link_to "/path1" do
+            -#    %i.icon-chevron-left
+            -#    Link 1
+    
+      %footer
+        %p 
+          &copy; МЛИП -
+          = link_to 'http://mlip.ru', 'http://mlip.ru', title: 'создание и продвижение сайтов в воронеже'
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
