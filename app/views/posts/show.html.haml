@@ -1,4 +1,8 @@
-#post-8.post
-  %h2= @post.title
-  %small= @post.created_at.strftime("опубликовано %d.%m.%Y года")     
-  .entry!= @post.body
+- content_for :moving do
+  %title= "Новости по раскрутке сайтов: " + @post.title
+  %meta(name="description" content="раскрутка сайтов #{@post.title}")
+  %meta(name="keywords" content="раскрутка сайтов #{@post.title}")  
+%h1= @post.title
+!= @post.body
+%p
+  %small.pull-right= @post.created_at.strftime("опубликовано %d.%m.%Y года")

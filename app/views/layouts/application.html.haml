@@ -67,7 +67,10 @@
         .span3
           %ul.nav.nav-tabs.nav-stacked
             - Article.order('lft DESC').try(:each) do |article|
-              %li{class: "#{'active' if current_page?(article_link_path(article.slug))}"}= link_to article.title, article_link_path(article.slug)
+              %li{class: "#{'active' if @article && @article == article}"}= link_to article.title, article_link_path(article.slug)
+          %ul.nav.nav-tabs.nav-stacked
+            - Post.order('created_at DESC').try(:each) do |post|
+              %li{class: "#{'active' if current_page?(post_path(post))}"}= link_to post.title, post
             -#%li
             -#  = link_to "/path1" do
             -#    %i.icon-chevron-left
