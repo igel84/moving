@@ -34,6 +34,7 @@ group :development do
   gem 'rails-erd'
   gem 'rnotify'
   gem 'letter_opener'
+  gem "better_errors"
 end
 
 group :test do
