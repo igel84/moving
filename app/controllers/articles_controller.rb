@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   
   def index
-    @article = Article.find 1
+    @article = Article.first
     render action:'show'
   end
 
