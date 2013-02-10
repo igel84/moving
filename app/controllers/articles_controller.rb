@@ -1,4 +1,5 @@
-class ArticlesController < ApplicationController
+#encoding: utf-8
+class ArticlesController < ApplicationController  
   
   def index
     @article = Article.first

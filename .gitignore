@@ -1,3 +1,9 @@
 /.bundle
 /log/*.log
+<<<<<<< HEAD
 /tmp
+=======
+/tmp
+/public/assets
+/db/development.sqlite3
+>>>>>>> c3967cf022b6c7577213b56c39a6e712c91286aa

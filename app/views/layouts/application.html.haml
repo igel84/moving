@@ -3,8 +3,15 @@
   %head
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
-    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    %title= content_for?(:title) ? yield(:title) : "Бронзовые втулки"
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")    
+    - if content_for?(:moving) != nil
+      = yield(:moving)
+    - else
+      %title= "Раскрутка сайтов - mlip.ru"
+      %meta(name="description" content="сайт о раскрутке и продвижении сайтов")
+      %meta(name="keywords" content="раскрутка продвижение сайтов сайта")
+    %meta(name="author" content="млип")
+    %meta(name='yandex-verification' content='560792cb59afb704')
     = csrf_meta_tags
     / Le HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
@@ -14,7 +21,7 @@
     %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
     %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
     %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
-    %link(href="favicon.ico" rel="shortcut icon")
+    %link(href="/assets/favicon.ico" rel="shortcut icon")
 
 
   %body
@@ -23,35 +30,80 @@
         .container
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
-
+              %li= link_to "раскрутка сайта по воронежу", "http://mlip.ru/articles/raskrutka-sayta"
+              %li= link_to "создание веб-сайта в воронеже", "http://mlip.ru/articles/uslugi"
+            %ul.nav.pull-right
+              %li
+                = mail_to "admin@mlip.ru", "<i class=icon-envelope></i>написать письмо в веб-студию МЛИП".html_safe, encode: "javascript", subject: "письмо отправлено с сайта раскрутка-сайтов-воронеж.рф"
     .container{style:'margin-top:50px'}
 
       .row
         .span9
           = bootstrap_flash
-          .hero-unit
-            %h1 Heading
-            %p Tagline
-            %p
-              %a.btn.btn-primary.btn-large
-                Learn more
+          #myCarousel.carousel.slide
+            .carousel-inner
+              .active.item
+                = image_tag 'mlip.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://mlip.ru', 'http://mlip.ru', target: '_blank'
+                    = '- создание и продвижение сайтов в Воронеже'
+              .item 
+                = image_tag 'aquamarket.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://aquamarket-vrn.ru', 'http://aquamarket-vrn.ru', target: '_blank'
+                    = '- водоподготовка и очистка воды'
+              .item 
+                = image_tag 'voronezhles.jpg'
+                .carousel-caption                  
+                  %p
+                    = link_to 'http://voronezhles.ru', 'http://voronezhles.ru', target: '_blank'
+                    = '- деревянные дома из оцилиндрованного бревна в воронеже, пиломатериал'
+            / Carousel nav
+            %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+            %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
           = yield
         .span3
           %ul.nav.nav-tabs.nav-stacked
             - Article.order('lft DESC').try(:each) do |article|
-              %li{class: "#{'active' if current_page?(article_link_path(article.slug))}"}= link_to article.title, article_link_path(article.slug)
+              %li{class: "#{'active' if @article && @article == article}"}= link_to article.title, article_link_path(article.slug)
+          %ul.nav.nav-tabs.nav-stacked
+            - Post.order('created_at DESC').try(:each) do |post|
+              %li{class: "#{'active' if current_page?(post_path(post))}"}= link_to post.title, post
             -#%li
             -#  = link_to "/path1" do
             -#    %i.icon-chevron-left
             -#    Link 1
     
       %footer
-        %p &copy; Company 2013
+        %p 
+          &copy; МЛИП -
+          = link_to 'http://mlip.ru', 'http://mlip.ru', title: 'создание и продвижение сайтов в воронеже'
+          / Yandex.Metrika informer
+          %a{:href => "http://metrika.yandex.ru/stat/?id=19962244&amp;from=informer", :rel => "nofollow", :target => "_blank", class: "pull-right"}
+            %img{:alt => "Яндекс.Метрика", :src => "//bs.yandex.ru/informer/19962244/3_0_D7EDC6FF_B7CDA6FF_0_pageviews", :style => "width:88px; height:31px; border:0;", :title => "Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"}/
+          / /Yandex.Metrika informer
+          
     /
       Javascripts
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
+    / Yandex.Metrika counter
+    :javascript
+      (function (d, w, c) { 
+        (w[c] = w[c] || []).push(function() { 
+          try { 
+            w.yaCounter19962244 = new Ya.Metrika({id:19962244, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); 
+          } 
+        catch(e) { } 
+        }); 
+        var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; 
+        if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } 
+      })(document, window, "yandex_metrika_callbacks");
+    %noscript
+      %div
+        %img{:alt => "", :src => "//mc.yandex.ru/watch/19962244", :style => "position:absolute; left:-9999px;"}
+    / /Yandex.Metrika counter
+
