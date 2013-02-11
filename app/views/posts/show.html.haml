@@ -2,7 +2,7 @@
   %title= "Новости по раскрутке сайтов: " + @post.title
   %meta(name="description" content="раскрутка сайтов #{@post.title}")
   %meta(name="keywords" content="раскрутка сайтов #{@post.title}")  
-%h1= @post.title
+%h2= @post.title
 != @post.body
 %p
   %small.pull-right= @post.created_at.strftime("опубликовано %d.%m.%Y года")
