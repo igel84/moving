@@ -25,23 +25,24 @@ RailsAdmin.config do |config|
       #configure :help_info, :boolean   #   # Sections:
     list do
       sort_by :lft
+      sort_reverse false
       field :title
       field :up, :string do
-        label "&#8593;".html_safe
-        formatted_value do
-          o = bindings[:object]
-          v = bindings[:view]
-          url = v.main_app.articles_up_path(o.id)
-          v.link_to("&#8593;".html_safe,url)
-        end
-      end  
-      field :down, :string do
         label "&#8595;".html_safe
         formatted_value do
           o = bindings[:object]
           v = bindings[:view]
-          url = v.main_app.articles_down_path(o.id)
+          url = v.main_app.articles_up_path(o.id)
           v.link_to("&#8595;".html_safe,url)
+        end
+      end  
+      field :down, :string do
+        label "&#8593;".html_safe
+        formatted_value do
+          o = bindings[:object]
+          v = bindings[:view]
+          url = v.main_app.articles_down_path(o.id)
+          v.link_to("&#8593;".html_safe,url)
         end
       end        
     end

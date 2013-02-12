@@ -66,7 +66,7 @@
           = yield
         .span3
           %ul.nav.nav-tabs.nav-stacked
-            - Article.order('lft DESC').try(:each) do |article|
+            - Article.order('lft').try(:each) do |article|
               %li{class: "#{'active' if @article && @article == article}"}= link_to article.title, article_link_path(article.slug)
           %ul.nav.nav-tabs.nav-stacked
             - Post.order('created_at DESC').try(:each) do |post|
@@ -90,6 +90,17 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
+    / Google counter
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-38399233-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
     / Yandex.Metrika counter
     :javascript
       (function (d, w, c) { 
